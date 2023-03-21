@@ -1,0 +1,218 @@
+h1{
+    font-size: 4.5rem;
+    margin: 2rem 0;
+}
+
+h2{
+    font-size: 3rem;
+    margin: 2rem 0;
+}
+
+h3{
+    font-size: 2.5rem;
+    margin: .5rem 0;
+}
+
+h4{
+    font-size: 2rem;
+    margin: .5rem 0;
+}
+
+p, span, a, td{
+    font-size: 1.8rem;
+    margin: .5rem 0;
+}
+
+.container{
+    max-width: 1200px;
+}
+
+.flexContainer{
+    margin-top: 5rem;
+}
+
+.error{
+    text-align: center;
+    color: red;
+}
+
+/* header */
+
+.nav{
+    display: block;
+}
+
+.nav--ul{
+    display: flex;
+    gap: .5rem;
+}
+
+.header{
+    padding: 0 5%;
+    height: 5rem;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.iconMenu{
+    display: none;
+}
+
+.user{
+    display: block;
+}
+
+.userM{
+    display: flex;
+    gap: .5rem;
+}
+
+.nav__link{
+    padding: .6rem 1.5rem ;
+    background-color: #2a2a2a13;
+    border-radius: .5rem;
+    transition: background .5s;
+}
+
+.nav__link:hover{
+    background-color: #2a2a2a2d;
+}
+
+.logo{
+    height: 4rem;
+    width: 6rem;
+}
+
+.cart{
+    width: 3rem;
+    height: 3rem;
+}
+
+.search{
+    width: 18%;
+    height: 3rem;
+}
+
+.pageName{
+    width: 60%;
+    margin: 3rem auto;
+    display: grid;
+}
+
+/* products */
+.cards{
+    height: 22rem;
+    overflow-y: hidden;
+}
+
+::-webkit-scrollbar{
+    background-color: transparent;
+    border-right: solid 1px black;
+    border-left: solid 1px black;
+    border-radius: 1rem;
+}
+
+body::-webkit-scrollbar{
+    border-right: none;
+    border-left: none;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #c6c6c67e;
+    border-radius: .5rem;
+}
+
+.card{
+    height: 11.25rem;
+    width: 20rem;
+}
+
+.card--type2{
+    width: 24rem;
+    height: auto;
+}
+
+.card--type2 .product__img{
+    height: 13.50rem;
+}
+
+.card--type3{
+    width: 25rem;
+}
+
+.showCard{
+    margin-bottom: 5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.twingLink{
+    margin:  0 auto;
+    justify-content: space-between;
+    margin-top: 2.5rem;
+}
+
+.twingLink__link{
+    height: 4rem;
+    width: 18rem;
+    cursor: pointer;
+}
+
+.twingLink__link.link__button{
+    margin: 0 0;
+}
+
+/* form */
+
+.input{
+    height: 3.5rem;
+    width: 50%;
+    margin: 0 auto;
+    font-size: 2rem;
+}
+
+.form__label{
+    font-size: 2rem;
+    text-align: center;
+}
+
+.link__button{
+    margin: 0 auto;
+    height: 4.5rem;
+    width: 25rem;
+    cursor: pointer;
+    transition: background .5s;
+}
+
+.link__button:hover{
+    background-color: #2a2a2a2d;
+}
+
+/* cart */
+
+.cart--view{
+    gap: 2rem;
+    width: 70%;
+    margin: 0  auto;
+}
+
+.product--cart{
+    height: auto;
+}
+
+.carts__prize{
+    text-align: end;
+    font-size: 3.5rem;
+}
+
+.carts__prize--span{
+    color: rgb(16, 120, 5);
+    font-size: 3rem;
+}
+
+.products--cart{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
