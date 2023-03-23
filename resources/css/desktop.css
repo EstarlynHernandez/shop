@@ -327,6 +327,7 @@ body::-webkit-scrollbar{
 .recharge__text{
     width: 25rem;
     font-size: 3rem;
+    cursor: pointer;
 }
 
 .money{

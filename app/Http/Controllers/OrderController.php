@@ -45,6 +45,12 @@ class OrderController extends Controller
     public function store()
     {
 
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
         $carts = Cart::where('user_id', Auth::id())->get();
         $count = 0;
         $prize = 0;
