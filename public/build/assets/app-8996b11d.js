@@ -1,0 +1,1 @@
+function t(){document.readyState=="complete"?c():setTimeout(t,100)}t();function c(){let e=document.querySelector(".mobileMenu"),n=document.querySelector(".iconMenu"),o=document.querySelector(".close");n.addEventListener("click",()=>{e.classList.toggle("dnone")}),o.addEventListener("click",()=>{e.classList.toggle("dnone")})}

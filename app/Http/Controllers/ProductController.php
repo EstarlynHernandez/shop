@@ -14,12 +14,12 @@ class ProductController extends Controller
 
         $categories = Category::all();
         if(isset($request['category']) && is_numeric($request['category'])){
-            $products = Product::search($request['search'])->where('category_id', $request['category'])->get();
+            $products = Product::search($request['search'])->where('category_id', $request['category'])->paginate(30);
         }else{
-            $products = Product::search($request['search'])->get();
+            $products = Product::search($request['search'])->paginate(30);
         }
 
-        return view('product/category', [
+        return view('product/search', [
             'products' => $products,
             'categories' => $categories,
         ]);
@@ -31,9 +31,12 @@ class ProductController extends Controller
     {
 
         $products = Product::all();
-
+        $newProducts = Product::orderBy('created_at')->get()->take(60);
+        $categories = Category::all();
         return view('product/index', [
-            'products' => $products
+            'products' => $products,
+            'new' => $newProducts,
+            'categories' => $categories
         ]);
     }
 

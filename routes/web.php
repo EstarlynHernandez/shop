@@ -34,20 +34,28 @@ Route::resource('cart', CartController::class)->middleware('auth');
 // Order
 Route::controller(OrderController::class)->group(function(){
     Route::get('/thanks/order', 'thanks')->name('order.thanks')->middleware(('auth'));
+    Route::post('/one/order', 'storeOne')->name('order.one')->middleware(('auth'));
 });
 Route::resource('order', OrderController::class);
 
 // User
+Route::resource('/user', UserController::class)->middleware('auth');
 Route::controller(UserController::class)->group(function (){
     Route::get('/login', 'login')->name('user.login');
     Route::post('/login', 'auth')->name('user.auth');
-    Route::get('/user/wallet', 'wallet')->name('user.wallet')->middleware('auth');
-    Route::post('/user/wallet', 'recharge')->name('user.recharge')->middleware('auth');
-    Route::get('/user/address', 'address')->name('user.address')->middleware('auth');
-    Route::post('/user/address', 'storeAddress')->name('user.storeAddress')->middleware('auth');
+    Route::get('wallet', 'wallet')->name('user.wallet')->middleware('auth');
+    Route::post('wallet', 'recharge')->name('user.recharge')->middleware('auth');
+    Route::get('address', 'address')->name('user.address')->middleware('auth');
+    Route::post('address', 'storeAddress')->name('user.storeAddress')->middleware('auth');
     Route::delete('/loggout', 'loggout')->name('user.loggout');
+    Route::get('/login', 'login')->name('user.login');
+    Route::get('/user/create', 'create')->name('user.create');
+    Route::post('/user', 'store')->name('user.store');
 });
-Route::resource('/user', UserController::class);
+
+route::get('/send',  function() {
+    return view('thanks');
+});
 
 
 // support
@@ -55,4 +63,5 @@ Route::controller(SupportController::class)->group(function(){
     Route::get('/questions', 'questions')->name('questions');
     Route::get('/privacy', 'privacy')->name('privacy');
     Route::get('/contact', 'contact')->name('contact');
+    Route::post('/contact', 'store')->name('contact');
 });

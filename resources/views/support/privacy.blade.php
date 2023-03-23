@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-    <div class="privacy">
+    <div class="privacy container">
         <h2 class="title">Privacy Politic</h2>
         <p class="text">We don't take your information. this page is a example page and we don't need your information</p>
         <p class="text">This is a example page and is only for give you our information and if you insert your information

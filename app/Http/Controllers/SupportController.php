@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MessageRequest;
 use Illuminate\Http\Request;
+use App\Models\Message;
 
 class SupportController extends Controller
 {
@@ -21,5 +23,17 @@ class SupportController extends Controller
 
     public function contact(){
         return view('support/contact');
+    }
+
+    public function store(MessageRequest $request){
+        $message = New Message;
+
+        $message->email = $request->email;
+        $message->name = $request->name;
+        $message->message = $request->message;
+
+        $message->save();
+
+        return redirect(route('home'));
     }
 }

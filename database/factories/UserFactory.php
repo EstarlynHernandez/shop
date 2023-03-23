@@ -30,6 +30,7 @@ class UserFactory extends Factory
             'birthdate' => New DateTime(),
             'remember_token' => Str::random(10),
             'wallet' => 500,
+            'cart' => 0,
         ];
     }
 

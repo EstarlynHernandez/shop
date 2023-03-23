@@ -9,26 +9,26 @@
             <h1 class="title">Cart</h1>
             @if (Session::get('wallet'))
                 {!! Session::forget('wallet') !!}
-                <p class="error">Your money aren't enought, please <a class="carts__prize--span"
+                <p class="error">Your money aren't enought, please <a class="cart__prize"
                         href="{{ route('user.wallet') }}">recharge</a></p>
             @endif
-            @isset($products)
+            @isset($carts)
                 @if (count($carts) > 5)
                     <form class="form__section" method="post" action="{{ route('order.store') }}">
                         @csrf
                         <input type="submit" class="link__button button" value="Buy">
                     </form>
-                    <h3 class="carts__prize">Total: <span class="carts__prize--span">${{ $prize }}</span></h3>
+                    <h4 class="carts__prize">Total: <span class="cart__prize">${{ $prize }}</span></h4>
                 @endif
                 <div class="products--cart">
                     @foreach ($carts as $cart)
                         <a href="{{ route('product.show', ['product' => $cart->product['name']]) }}">
                             <div class="product--cart">
 
-                                <img class="product__img" src="{{ asset('assets/imgs/' . $cart->product->images[0] . '.png') }}"
+                                <img class="product__img" src="{{ asset('assets/imgs/' . $cart->product->images()[0] . '.png') }}"
                                     alt="{{ $cart->product->name }}">
                                 <p class="text">{{ Str::limit($cart->product->name, 20) }}</p>
-                                <p class="text">${{ $cart->product->prize }}</p>
+                                <p class="text cart__prize">${{ $cart->product->prize }}</p>
                                 <form method="post" action="{{ route('cart.destroy', ['cart' => $cart->id]) }}">
                                     @csrf
                                     @method('delete')
@@ -40,13 +40,13 @@
                         </a>
                     @endforeach
                 </div>
-                <h3 class="carts__prize">Total: <span class="carts__prize--span">${{ $prize }}</span></h3>
+                <h4 class="carts__prize">Total: <span class="cart__prize">${{ $prize }}</span></h4>
                 <form class="form__section" method="post" action="{{ route('order.store') }}">
                     @csrf
                     <input type="submit" class="link__button" value="Buy">
                 </form>
             @else
-                <h3 class="title">Your Cart is empty</h3>
+                <h4 class="title">Your Cart is empty</h4>
                 <a href="{{ route('product.index') }}" class="link__button">Buy Something</a>
             @endisset
 
@@ -66,7 +66,7 @@
                                 src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
                                 alt="{{ $product->images()[0] }}">
                             <div class="product__text">
-                                <h3 class="card__title">{{ Str::limit($product['name'], 12) }}</h3>
+                                <h4 class="card__title">{{ Str::limit($product['name'], 12) }}</h4>
                                 <p class="card__text">{{ $product['prize'] }}$</p>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                             <img class="product__img" src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
                                 alt="{{ $product->images()[0] }}">
                             <div class="cardText">
-                                <h3 class="card__title">{{ Str::limit($product['name'], 15) }}</h3>
+                                <h4 class="card__title">{{ Str::limit($product['name'], 15) }}</h4>
                                 <p class="card__text">{{ $product['prize'] }}$</p>
                             </div>
                         </div>

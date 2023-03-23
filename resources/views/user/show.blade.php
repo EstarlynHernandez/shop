@@ -10,15 +10,15 @@
             <h1 class="title">{{ Auth::user()->name }}</h1>
             <div class="flexContainer">
                 <h2 class="title">My Info</h2>
-                <p class="text">{{ Auth::user()->name }} {{ Auth::user()->lastname }}</p>
-                <p class="text">{{ Auth::user()->email }}</p>
-                <p class="text">{{ Auth::user()->birtdate }}</p>
+                <p class="title question">{{ Auth::user()->name }} {{ Auth::user()->lastname }}</p>
+                <p class="title question">{{ Auth::user()->email }}</p>
+                <p class="title question">{{ Auth::user()->birthdate }}</p>
             </div>
             <a href="#" class="link__button">Edit</a>
             <div class="flexContainer">
                 <h2 class="title">Address</h2>
                 @isset($address)
-                    <p class="text">{{ $address['address'] }}</p>
+                    <p class="text question">{{ $address['address'] }}</p>
                 @endisset
             </div>
             <div class="flexContainer">

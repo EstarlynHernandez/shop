@@ -7,18 +7,18 @@
         <section class="item--container container section">
             <h1 class="title">New Product</h1>
             <div class="items showCard">
-                @for ($i = 0; $i < 3; $i++)
-                    <a href="{{ route('product.show', ['product' => $products[$i]['name']]) }}">
+                @foreach ($new as $product)
+                    <a href="{{ route('product.show', ['product' => $product['name']]) }}">
                         <div class="item card--type2">
-                            <img class="product__img" src="{{ asset('assets/imgs/' . $products[$i]->images()[0] . '.png') }}"
-                                alt="{{ $products[$i]->images()[0] }}">
+                            <img class="product__img" src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
+                                alt="{{ $product->images()[0] }}">
                             <div class="cardText">
-                                <h3 class="card__title">{{ Str::limit($products[$i]['name'], 15) }}</h3>
-                                <p class="product__text">{{ $products[$i]['prize'] }}$</p>
+                                <h4 class="card__title">{{ Str::limit($product['name'], 15) }}</h4>
+                                <p class="product__text">{{ $product['prize'] }}$</p>
                             </div>
                         </div>
                     </a>
-                @endfor
+                @endforeach
             </div>
         </section>
 
@@ -35,7 +35,7 @@
                                 src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
                                 alt="{{ $product->images()[0] }}">
                             <div class="cardText">
-                                <h3 class="card__title">{{ Str::limit($product['name'], 15) }}</h3>
+                                <h4 class="card__title">{{ Str::limit($product['name'], 15) }}</h4>
                                 <p class="product__text">{{ $product['prize'] }}$</p>
                             </div>
                         </div>
@@ -44,25 +44,29 @@
             </div>
         </section>
 
-        <section class="container section">
-            <div class="titleContainer">
-                <h2 class="cards__title">All</h2>
-            </div>
-            <div class="showCard">
-                @foreach ($products as $product)
-                    <a href="{{ route('product.show', ['product' => $product['name']]) }}">
-                        <div class="card--type2">
-                            <img class="card__img product__img"
-                                src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
-                                alt="{{ $product->images()[0] }}">
-                            <div class="cardText">
-                                <h3 class="card__title">{{ Str::limit($product['name'], 15) }}</h3>
-                                <p class="product__text">{{ $product['prize'] }}$</p>
+        @foreach ($categories->take(4) as $category)
+            <section class="container section">
+                <div class="titleContainer">
+                    <h2 class="cards__title">{{ $category->name }}</h2>
+                    <a href="{{ route('product.search', ['category' => $category['id']]) }}"
+                        class="cards__link link">More</a>
+                </div>
+                <div class="cards">
+                    @foreach ($products->where('category_id', $category->id)->take(10) as $product)
+                        <a href="{{ route('product.show', ['product' => $product['name']]) }}">
+                            <div class="card">
+                                <img class="product__img"
+                                    src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
+                                    alt="{{ $product->images()[0] }}">
+                                <div class="product__text">
+                                    <h4 class="card__title ">{{ Str::limit($product['name'], 12) }}</h4>
+                                    <p class="card__text">{{ $product['prize'] }}$</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                @endforeach
-            </div>
-        </section>
+                        </a>
+                    @endforeach
+                </div>
+            </section>
+        @endforeach
     </main>
 @endsection

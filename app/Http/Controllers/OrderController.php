@@ -9,6 +9,9 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestEmail;
 
 class OrderController extends Controller
 {
@@ -17,16 +20,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id', Auth::user()->id)->orderBy('number')->get();
-        
-
-        $number = [];
-        foreach($orders as $order){
-            $number[$order->number] = $order; 
-        }
-
+        $orders = Order::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
+    
         return view('order/index', [
-            'orders' => $number,
+            'orders' => $orders,
         ]);
     }
 
@@ -39,25 +36,13 @@ class OrderController extends Controller
      */
     public function create(Request $request)
     {
-        $product = Product::find($request->id);
-        $products = Product::all();
-
-        for($i = 0; $i < count($products); $i++){
-            $products[$i]->images = explode( "/-img-/", $products[$i]->images);
-        }
-
-        $product->images = explode( "/-img-/", $product->images);
-        
-        return view('order/create', [
-            'product' => $product,
-            'products' => $products,
-        ]);
+        return redirect(route('cart.index'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store()
     {
 
         $carts = Cart::where('user_id', Auth::id())->get();
@@ -92,14 +77,17 @@ class OrderController extends Controller
                 $order->number = $number;
                 $order->user_id = $user->id;
                 $order->product_id = $product->id;
+                $order->prize = $prize;
+                $order->items = count($products);
                 
                 $product->amount = $product->amount - 1;
                 $product->save();
                 $order->save();
             }
+            $user->cart = 0;
             $user->save();
             
-            // Mail::to('estarlyn2107@hotmail.com')->send(new TestEmail());
+            Mail::to(Auth::user()->email)->send(new TestEmail());
 
             return redirect(route('order.thanks'));
         }else{
@@ -109,12 +97,41 @@ class OrderController extends Controller
         return redirect(route('cart.index'));
     }
 
+    public function storeOne(Request $request){
+        try {
+            $product = Product::find($request->product);
+        } catch (\Throwable $th) {
+            return redirect(URL::previous());
+        }
+        $user = User::find(Auth::user()->id);
+        $number = $user->id.strtolower(substr($user->name, 0, 3)).rand(1000, 9999).date('mdthi-s');
+
+        if($user->wallet >= $product->prize && $product->amount > 0){
+            $order = new Order;
+            $order->number = $number;
+            $order->user_id = $user->id;
+            $order->product_id = $product->id;
+            $order->prize = $product->prize;
+            $order->items = 1;
+
+            $user->wallet = $user->wallet - $product->prize;
+            $product->amount = $product->amount - 1;
+
+            $product->save();
+            $user->save();
+            $order->save();
+
+            return redirect(route('order.thanks'));
+        }
+        return redirect(URL::previous());
+    }
+
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        return view('order/order');
+        //
     }
 
     /**

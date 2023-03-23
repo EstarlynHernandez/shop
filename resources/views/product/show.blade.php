@@ -7,7 +7,6 @@
 @section('content')
     <main>
         <section class="product container">
-
             <picture class="product__img">
                 <img src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
                     alt="{{ Str::limit($product['name'], 10) }}">
@@ -17,12 +16,16 @@
                 <p class="text">{{ Str::limit($product['description'], 100) }}</p>
                 <a href="#description" class="link">More</a>
             </div>
-            @if ($product->amount < 4)
+            @if ($product->amount < 200)
                 <p class="text">Remains: <span class="link">{{ $product->amount }}</span></p>
             @endif
             <div class="twingLink">
                 @if ($product->amount > 0)
-                    <a href="#" class="twingLink__link link__button">Buy</a>
+                    <form method="post" action="{{ route('order.one') }}">
+                        <input type="number" class="dnone" name="product" value="{{ $product['id'] }}">
+                        @csrf
+                        <input type="submit" value="Buy" class="link__button twingLink__link">
+                    </form>
                     <form method="post" action="{{ route('cart.store') }}">
                         <input type="number" class="dnone" name="product" value="{{ $product['id'] }}">
                         @csrf
@@ -45,7 +48,7 @@
                             <img class="product__img" src="{{ asset('assets/imgs/' . $produc->images()[0] . '.png') }}"
                                 alt="{{ $produc->images()[0] }}">
                             <div class="cardText">
-                                <h3 class="card__title">{{ Str::limit($produc['name'], 15) }}</h3>
+                                <h4 class="card__title">{{ Str::limit($produc['name'], 15) }}</h4>
                                 <p class="text">{{ $produc['prize'] }}$</p>
                             </div>
                         </div>
@@ -83,7 +86,7 @@
                         <img class="product__img" src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
                             alt="{{ $product->images()[0] }}">
                         <div class="cardText">
-                            <h3 class="card__title">{{ Str::limit($product['name'], 15) }}</h3>
+                            <h4 class="card__title">{{ Str::limit($product['name'], 15) }}</h4>
                             <p class="card__text">{{ $product['prize'] }}$</p>
                         </div>
                     </div>

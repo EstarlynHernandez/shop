@@ -17,14 +17,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        
-        $products = Product::all()->take(60);
+        $products = Product::all();
         $categories = Category::all();
+        $random = null;
+        if(count($products) > 1){
+            $random = $products->random();
+        }
         
         return view('home/index', [
             'categories' => $categories,
             'products' => $products,
-            'rProduct' => $products->random()
+            'random' => $random,
         ]);
     }
 

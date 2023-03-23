@@ -33,10 +33,13 @@ class UserController extends Controller
     public function recharge(Request $request){
         $user = user::find(Auth::user()->id);
         $user->wallet = $user->wallet + $request['value'];
+        if($user->wallet > 50000){
+            $user->wallet = 50000;
+        }
 
         $user->save();
 
-        return redirect(route('home'));
+        return redirect(route('user.wallet'));
     }
 
     public function address(){
@@ -111,8 +114,10 @@ class UserController extends Controller
         $user->email = $request['email'];
         $user->password = Hash::make($request['password']);
         $user->level = 1;
-        $user->address = 'in some place in the world';
-        $user->birtdate = new \DateTime;
+        $user->wallet = 500;
+        $user->cart = 0;
+        $user->username = $request['name'].'#'.random_int(1000, 9999);
+        $user->birthdate = new \DateTime($request->date);
 
         $user->save();
 

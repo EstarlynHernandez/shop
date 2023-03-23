@@ -41,6 +41,14 @@
                 </fieldset>
 
                 <fieldset class="form__section">
+                    <label for="date" class="form__label">birthdate</label>
+                    <input value="{{old('date')}}" placeholder="Repeat Email" class="input" type="date" id='date' name="date">
+                    @if ($errors->has('date'))
+                        <p class="error">{{ $errors->first('date') }}</p>
+                    @endif
+                </fieldset>
+
+                <fieldset class="form__section">
                     <label for="password" class="form__label">Password</label>
                     <input placeholder="********" class="input" type="password" id="password" name="password">
                     @if ($errors->has('password'))

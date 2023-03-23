@@ -65,6 +65,7 @@ p, span, a, td{
 
 .userM{
     display: flex;
+    align-items: center;
     gap: .5rem;
 }
 
@@ -79,6 +80,39 @@ p, span, a, td{
     background-color: #2a2a2a2d;
 }
 
+.nav__item{
+    position: relative;
+}
+
+.submenu{
+    transition: height .5s;
+    top: 3rem;
+    display: flex;
+    position: absolute;
+    flex-wrap: wrap;
+    overflow: scroll;
+    background-color: rgba(255, 255, 255, 0);
+    width: 32rem;
+    height: 0vh;
+    left: -10rem;
+    justify-content: center;
+    gap: .5rem;
+    border-radius: 1rem;
+    z-index: -100;
+}
+
+.nav__item:hover .submenu{
+    height: 27rem;
+}
+
+.submenu__link{
+    height: 4rem;
+    display: grid;
+    place-items: center;
+    width: 10rem;
+    font-size: 1.2rem;
+}
+
 .logo{
     height: 4rem;
     width: 6rem;
@@ -87,6 +121,10 @@ p, span, a, td{
 .cart{
     width: 3rem;
     height: 3rem;
+}
+
+.user.cart{
+    display: block;
 }
 
 .search{
@@ -101,10 +139,6 @@ p, span, a, td{
 }
 
 /* products */
-.cards{
-    height: 22rem;
-    overflow-y: hidden;
-}
 
 ::-webkit-scrollbar{
     background-color: transparent;
@@ -123,14 +157,33 @@ body::-webkit-scrollbar{
     border-radius: .5rem;
 }
 
+.submenu::-webkit-scrollbar{
+    display: none;
+}
+
 .card{
-    height: 11.25rem;
-    width: 20rem;
+    width: 22rem;
+    grid-template-rows: 13.75rem 8rem;
+    transition: background .5s;
+    border-radius: 1rem;
+    padding: .2rem;
+}
+
+.card:hover{
+    background-color: #c6c6c67e;
 }
 
 .card--type2{
     width: 24rem;
     height: auto;
+    grid-template-rows: auto;
+    border-radius: 1rem;
+    padding: .5rem;
+    transition: background .8s;
+}
+
+.card--type2:hover{
+    background-color: #c6c6c67e;
 }
 
 .card--type2 .product__img{
@@ -139,6 +192,11 @@ body::-webkit-scrollbar{
 
 .card--type3{
     width: 25rem;
+    transition: background .5s ;
+}
+
+.card--type3:hover{
+    background-color: #6969697e;
 }
 
 .showCard{
@@ -215,4 +273,64 @@ body::-webkit-scrollbar{
     display: flex;
     flex-direction: column;
     gap: .5rem;
+}
+
+.cart__link{
+    margin: 0;
+}
+
+.orders{
+    width: 45rem;
+}
+
+/* User */
+
+
+.user__button{
+    width: 50%;
+    height: 10rem;
+    transition: background .5s;
+    font-size: 2.5rem;
+}
+.user__button:hover{
+    background-color: #9292927e;
+}
+
+.user.cart{
+    position: relative;
+}
+
+.cart .submenu{
+    width: 8rem;
+    padding-top: 1rem;
+    left: -3rem;
+    transition: height 1.5s;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0;
+}
+
+.cart:hover .submenu{
+    height: 16rem;
+}
+
+
+/* wallet */
+
+.recharge__text{
+    width: 25rem;
+    font-size: 3rem;
+}
+
+.money{
+    display: block;
+    font-size: 1.2rem;
+    background-color: #c6c6c67e;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    border: none;
+    margin: .2rem;
+    cursor: pointer;
 }

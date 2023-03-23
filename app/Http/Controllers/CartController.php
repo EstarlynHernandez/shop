@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Product;
-use Faker\Core\Number;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +13,7 @@ class CartController extends Controller
     public function thanks(int $id)
     {
         $product = Product::find($id);
-        $products = Product::all();
+        $products = Product::where('category_id', $product->category_id)->get()->take(15);
 
         return view('cart/thanks', [
             'product' => $product,
@@ -27,12 +27,13 @@ class CartController extends Controller
     {
         $carts = Cart::where('user_id', Auth::id())->get();
         $prize = 0;
+
         if (count($carts) > 0) {
             foreach ($carts as $cart) {
                 $prize += $cart->product->prize;
             }
         } else {
-            $products = null;
+            $carts = null;
         }
 
 
@@ -63,6 +64,10 @@ class CartController extends Controller
         $cart->user_id = Auth::user()->id;
         $cart->product_id = intval($request->product);
         $cart->save();
+
+        $user = User::find(Auth::user()->id);
+        $user->cart = Auth::user()->cart + 1;
+        $user->save();
 
         return redirect(route('cart.thanks', $request->product))->with($request->product);
     }
@@ -100,7 +105,11 @@ class CartController extends Controller
 
         if ($cart->user_id == Auth::user()->id) {
             $cart->delete();
+            $user = User::find(Auth::user()->id);
+            $user->cart = Auth::user()->cart - 1;
+            $user->save();
         }
+
 
         return redirect(route('cart.index'));
     }
