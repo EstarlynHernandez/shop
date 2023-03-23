@@ -182,3 +182,8 @@ dist
 # Ignore all local history of files
 .history
 .ionide
+
+.htaccess
+composer.phar
+database/factories/tableFactory.php
+database/htaccess
