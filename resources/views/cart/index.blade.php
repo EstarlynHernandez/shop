@@ -10,7 +10,7 @@
             @if (Session::get('wallet'))
                 {!! Session::forget('wallet') !!}
                 <p class="error">Your money aren't enought, please <a class="cart__prize"
-                        href="{{ route('user.wallet') }}">recharge</a></p>
+                        href="{{ route('user.wallet') }}" title="Recharge">recharge</a></p>
             @endif
             @isset($carts)
                 @if (count($carts) > 5)
@@ -22,10 +22,10 @@
                 @endif
                 <div class="products--cart">
                     @foreach ($carts as $cart)
-                        <a href="{{ route('product.show', ['product' => $cart->product['name']]) }}">
+                        <a href="{{ route('product.show', ['product' => $cart->product['name']]) }}" title="product">
                             <div class="product--cart">
 
-                                <img class="product__img" src="{{ asset('assets/imgs/' . $cart->product->images()[0] . '.png') }}"
+                                <img class="product__img" src="{{ asset('assets/imgs/' . $cart->product->images()[0] . '.webp') }}"
                                     alt="{{ $cart->product->name }}">
                                 <p class="text">{{ Str::limit($cart->product->name, 20) }}</p>
                                 <p class="text cart__prize">${{ $cart->product->prize }}</p>
@@ -47,7 +47,7 @@
                 </form>
             @else
                 <h4 class="title">Your Cart is empty</h4>
-                <a href="{{ route('product.index') }}" class="link__button">Buy Something</a>
+                <a href="{{ route('product.index') }}" class="link__button" title="Buy">Buy Something</a>
             @endisset
 
 
@@ -56,14 +56,14 @@
         <section class="container section">
             <div class="titleContainer">
                 <h2 class="cards__title">For You</h2>
-                <a href="#" class="cards__link link">More</a>
+                <a href="#" class="cards__link link" title="more">More</a>
             </div>
             <div class="cards">
                 @foreach ($products->take(30) as $product)
-                    <a href="{{ route('product.show', ['product' => $product['name']]) }}">
+                    <a href="{{ route('product.show', ['product' => $product['name']]) }}" title="Product">
                         <div class="card">
                             <img class="card__img product__img"
-                                src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
+                                src="{{ asset('assets/imgs/' . $product->images()[0] . '.webp') }}"
                                 alt="{{ $product->images()[0] }}">
                             <div class="product__text">
                                 <h4 class="card__title">{{ Str::limit($product['name'], 12) }}</h4>
@@ -81,9 +81,9 @@
             </div>
             <div class="showCard">
                 @foreach ($products->take(60) as $product)
-                    <a href="{{ route('product.show', ['product' => $product['name']]) }}">
+                    <a href="{{ route('product.show', ['product' => $product['name']]) }}" title="Product">
                         <div class="card--type2">
-                            <img class="product__img" src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
+                            <img class="product__img" src="{{ asset('assets/imgs/' . $product->images()[0] . '.webp') }}"
                                 alt="{{ $product->images()[0] }}">
                             <div class="cardText">
                                 <h4 class="card__title">{{ Str::limit($product['name'], 15) }}</h4>

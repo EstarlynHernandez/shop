@@ -390,6 +390,10 @@ button {
     align-items: center;
 }
 
+.show__prize{
+    color: limegreen;
+}
+
 /* pagination */
 .pages {
     display: flex;

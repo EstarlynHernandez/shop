@@ -18,24 +18,27 @@
             <img src="{{ asset('assets/icons/light-menu.svg') }}" alt="menu" title="Menu">
         </picture>
         <div class="logo">
-            <a href="{{ route('home') }}">
-                <img src="{{ asset('assets/icons/logo.svg') }}" alt="">
+            <a href="{{ route('home') }}" name="Home">
+                <img src="{{ asset('assets/icons/logo.svg') }}" alt="Home">
             </a>
         </div>
         <nav class="nav">
             <ul class="nav--ul">
-                <li class="nav__item"><a class="nav__link" href="{{ route('home') }}">Home</a></li>
-                <li class="nav__item"><a class="nav__link" href="{{ route('product.search') }}">Categories</a>
+                <li class="nav__item"><a class="nav__link" href="{{ route('home') }}" title="Home">Home</a></li>
+                <li class="nav__item"><a class="nav__link" href="{{ route('product.search') }}"
+                        title="home">Categories</a>
                     <ul class="submenu">
                         @foreach (Session()->get('category') as $category)
                             <li>
                                 <a class="submenu__link nav__link"
-                                    href="{{ route('product.search', ['category' => $category['id']]) }}">{{ $category['name'] }}</a>
+                                    href="{{ route('product.search', ['category' => $category['id']]) }}"
+                                    title="{{ $category['name'] }}">{{ $category['name'] }}</a>
                             </li>
                         @endforeach
                     </ul>
                 </li>
-                <li class="nav__item"><a class="nav__link" href="{{ route('product.index') }}">New</a></li>
+                <li class="nav__item"><a class="nav__link" href="{{ route('product.index') }}" title="new">New</a>
+                </li>
             </ul>
         </nav>
         <form class="search" action="{{ route('product.search') }}">
@@ -45,7 +48,7 @@
             </button>
         </form>
         <section class="userM">
-            <a href="{{ route('cart.index') }}" class="cart">
+            <a href="{{ route('cart.index') }}" class="cart" title="cart">
                 <p class="cart__count">
                     @isset(Auth::user()->cart)
                         {{ Auth::user()->cart }}
@@ -58,30 +61,31 @@
                 </div>
             </a>
             <div class="user cart">
-                <a href="{{ route('user.index') }}" class="user__link" href="#">
-                    <img src="{{ asset('assets/icons/user.svg') }}" alt="cart">
+                <a href="{{ route('user.index') }}" class="user__link" href="#" title="user">
+                    <img src="{{ asset('assets/icons/user.svg') }}" alt="user">
                 </a>
-                <ul class="submenu">
-                    @if (Auth::user())
-                        <li><a href="{{ route('user.wallet') }}"
-                                class="money cart__prize">${{ Auth::user()->wallet }}</a></li>
+                @if (Auth::user())
+                    <ul class="submenu">
+                        <li><a href="{{ route('user.wallet') }}" class="money cart__prize"
+                                title="wallet">${{ Auth::user()->wallet }}</a></li>
 
-                        <a href="{{ route('order.index') }}" class="money">My Orders</a>
-                        <a href="{{route('user.show', ['user' => Auth::user()->name])}}" class="money">Info</a>
+                        <a href="{{ route('order.index') }}" class="money" title="My orders">My Orders</a>
+                        <a href="{{ route('user.show', ['user' => Auth::user()->name]) }}" class="money"
+                            title="Info">Info</a>
                         <form method="post" action="{{ route('user.loggout') }}">
                             @csrf
                             @method('delete')
                             <input type="submit" class="money" value="Loggout">
                         </form>
-                    @endif
-                </ul>
+                    </ul>
+                @endif
             </div>
         </section>
 
         {{-- Mobile Menu --}}
         <div class="mobileMenu container dnone">
             <div class="twingHome">
-                <a href="{{ route('home') }}">
+                <a href="{{ route('home') }}" title="Home">
                     <img src="{{ asset('assets/icons/name.svg') }}" alt="Home" title="logo">
                 </a>
                 <div class="close">
@@ -91,7 +95,7 @@
             @if (Auth::user())
                 <div class="mobileUser">
                     <div class="user--mobileMenu">
-                        <a href="{{ route('user.index') }}" class="mobileUserImg">
+                        <a href="{{ route('user.index') }}" class="mobileUserImg" title="User">
                             <img src="{{ asset('assets/icons/' . (Auth::user()->image ? Auth::user()->image : 'user.svg')) }}"
                                 alt="User" title="user" class="mobileUser__img">
                         </a>
@@ -103,35 +107,37 @@
                                     0
                                 @endisset
                             </p>
-                            <a href="{{ route('cart.index') }}" class="user__link" href="#">
+                            <a href="{{ route('cart.index') }}" class="user__link" href="#" title="cart">
                                 <img src="{{ asset('assets/icons/cart.svg') }}" alt="cart">
                             </a>
                         </div>
                     </div>
                     <div class="userOptions ">
-                        <a href="{{ route('user.index') }}" class="userOptions__option link__button">User</a>
-                        <a href="{{ route('user.wallet') }}" class="userOptions__option link__button">Wallet: <span
-                                class="link"> ${{ Auth::user()->wallet }}</span></a>
+                        <a href="{{ route('user.index') }}" class="userOptions__option link__button"
+                            title="user">User</a>
+                        <a href="{{ route('user.wallet') }}" class="userOptions__option link__button"
+                            title="wallet">Wallet: <span class="link"> ${{ Auth::user()->wallet }}</span></a>
                     </div>
                 </div>
-                <div class="mobileLinks">
-                    <a href="{{ route('home') }}" class="mobileMenu__link link__button">Home</a>
-                    <a href="{{ route('product.search') }}" class="mobileMenu__link link__button">Categories</a>
-                    <a href="{{ route('product.index') }}" class="mobileMenu__link link__button">New</a>
-                </div>
+            @endif
+
+            @if (Auth::user())
                 <form class="loggout" method="post" action="{{ route('user.loggout') }}">
                     @csrf
                     @method('delete')
                     <input type="submit"class="loggout__link link__button" value="Loggout">
                 </form>
-            @else
-                <div class="mobileLinks">
-                    <a href="{{ route('home') }}" class="mobileMenu__link link__button">Home</a>
-                    <a href="{{ route('product.search') }}" class="mobileMenu__link link__button">Categories</a>
-                    <a href="{{ route('product.index') }}" class="mobileMenu__link link__button">New</a>
-                </div>
+            @endif
+
+            <div class="mobileLinks">
+                <a href="{{ route('home') }}" class="mobileMenu__link link__button" title="home">Home</a>
+                <a href="{{ route('product.search') }}" class="mobileMenu__link link__button"
+                    title="category">Categories</a>
+                <a href="{{ route('product.index') }}" class="mobileMenu__link link__button" title="new">New</a>
+            </div>
+            @if (!Auth::user())
                 <div class="loggout">
-                    <a href="{{ route('user.login') }}" class="login__button link__button">Login</a>
+                    <a href="{{ route('user.login') }}" class="login__button link__button" title="login">Login</a>
                 </div>
             @endif
         </div>

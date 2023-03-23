@@ -25,7 +25,7 @@
                 @foreach ($products as $product)
                     <a href="{{ route('product.show', ['product' => $product['name']]) }}">
                         <div class="card--type2">
-                            <img class="product__img" src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
+                            <img class="product__img" src="{{ asset('assets/imgs/' . $product->images()[0] . '.webp') }}"
                                 alt="{{ $product->images()[0] }}">
                             <div class="cardText">
                                 <h4 class="cardText">{{ Str::limit($product['name'], 15) }}</h4>

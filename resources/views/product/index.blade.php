@@ -10,11 +10,11 @@
                 @foreach ($new as $product)
                     <a href="{{ route('product.show', ['product' => $product['name']]) }}">
                         <div class="item card--type2">
-                            <img class="product__img" src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
+                            <img class="product__img" src="{{ asset('assets/imgs/' . $product->images()[0] . '.webp') }}"
                                 alt="{{ $product->images()[0] }}">
                             <div class="cardText">
                                 <h4 class="card__title">{{ Str::limit($product['name'], 15) }}</h4>
-                                <p class="product__text">{{ $product['prize'] }}$</p>
+                                <p class="text card__text">{{ $product['prize'] }}$</p>
                             </div>
                         </div>
                     </a>
@@ -32,11 +32,11 @@
                     <a href="{{ route('product.show', ['product' => $product['name']]) }}">
                         <div class="card">
                             <img class="card__img product__img"
-                                src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
+                                src="{{ asset('assets/imgs/' . $product->images()[0] . '.webp') }}"
                                 alt="{{ $product->images()[0] }}">
                             <div class="cardText">
                                 <h4 class="card__title">{{ Str::limit($product['name'], 15) }}</h4>
-                                <p class="product__text">{{ $product['prize'] }}$</p>
+                                <p class="text card__text">{{ $product['prize'] }}$</p>
                             </div>
                         </div>
                     </a>
@@ -56,7 +56,7 @@
                         <a href="{{ route('product.show', ['product' => $product['name']]) }}">
                             <div class="card">
                                 <img class="product__img"
-                                    src="{{ asset('assets/imgs/' . $product->images()[0] . '.png') }}"
+                                    src="{{ asset('assets/imgs/' . $product->images()[0] . '.webp') }}"
                                     alt="{{ $product->images()[0] }}">
                                 <div class="product__text">
                                     <h4 class="card__title ">{{ Str::limit($product['name'], 12) }}</h4>
