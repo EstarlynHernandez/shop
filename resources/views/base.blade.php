@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     @yield('meta')
+    <link rel="shortcut icon" href="{{asset('assets/icons/logo.svg')}}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/desktop.css') }}" media="only screen and (min-width:900px)">
 </head>
@@ -69,13 +70,13 @@
                         <li><a href="{{ route('user.wallet') }}" class="money cart__prize"
                                 title="wallet">${{ Auth::user()->wallet }}</a></li>
 
-                        <a href="{{ route('order.index') }}" class="money" title="My orders">My Orders</a>
+                        <a href="{{ route('order.index') }}" class="money" title="My orders"><img src="{{asset('assets/icons/orders.svg')}}" alt="Orders" title="Orders"></a>
                         <a href="{{ route('user.show', ['user' => Auth::user()->name]) }}" class="money"
-                            title="Info">Info</a>
+                            title="Info"><img src="{{asset('assets/icons/info.svg')}}" alt="Info" title="info"></a>
                         <form method="post" action="{{ route('user.loggout') }}">
                             @csrf
                             @method('delete')
-                            <input type="submit" class="money" value="Loggout">
+                            <button type="submit" class="money"><img src="{{asset('assets/icons/loggout.svg')}}" alt="loggout" title="loggout"></button>
                         </form>
                     </ul>
                 @endif
@@ -116,17 +117,9 @@
                         <a href="{{ route('user.index') }}" class="userOptions__option link__button"
                             title="user">User</a>
                         <a href="{{ route('user.wallet') }}" class="userOptions__option link__button"
-                            title="wallet">Wallet: <span class="link"> ${{ Auth::user()->wallet }}</span></a>
+                            title="wallet"><span class="card__text"> ${{ Auth::user()->wallet }}</span></a>
                     </div>
                 </div>
-            @endif
-
-            @if (Auth::user())
-                <form class="loggout" method="post" action="{{ route('user.loggout') }}">
-                    @csrf
-                    @method('delete')
-                    <input type="submit"class="loggout__link link__button" value="Loggout">
-                </form>
             @endif
 
             <div class="mobileLinks">
@@ -135,10 +128,19 @@
                     title="category">Categories</a>
                 <a href="{{ route('product.index') }}" class="mobileMenu__link link__button" title="new">New</a>
             </div>
+
             @if (!Auth::user())
                 <div class="loggout">
                     <a href="{{ route('user.login') }}" class="login__button link__button" title="login">Login</a>
                 </div>
+            @endif
+            
+            @if (Auth::user())
+                <form class="loggout" method="post" action="{{ route('user.loggout') }}">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="loggout__link link__button"><img src="{{asset('assets/icons/loggout.svg')}}" alt="loggout" title="loggout"></button>
+                </form>
             @endif
         </div>
     </header>

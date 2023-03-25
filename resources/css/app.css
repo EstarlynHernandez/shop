@@ -92,6 +92,7 @@ button {
     background-color: #2a2a2a13;
     border-radius: 1rem;
     padding: 0.5rem;
+    display: block;
 }
 
 .product__text {
@@ -381,7 +382,7 @@ button {
     font-weight: 900;
     color: limegreen;
     text-align-last: right;
-    margin-right: 15%;
+    margin-right: 5%;
 }
 
 .titleContainer {
